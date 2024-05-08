@@ -36,6 +36,10 @@ int main()
             cin >> i;
     }
 
+    map<vector<vector<int>>, int> mp;
+
+    mp[start]++;
+
     priority_queue<pair<int, pair<int, vector<vector<int>>>>, vector<pair<int, pair<int, vector<vector<int>>>>>, greater<pair<int, pair<int, vector<vector<int>>>>>> pq;
     pq.push({heu(start, end, 0), {0, start}});
 
@@ -80,6 +84,11 @@ int main()
                         {
                             vector<vector<int>> temp = state;
                             swap(temp[i][j], temp[ni][nj]);
+
+                            if(mp[temp]>0){
+                                continue;
+                            }
+                            mp[temp]++;
                             pq.push({heu(temp, end, level + 1), {level + 1, temp}});
                             for (auto it : temp)
                             {
